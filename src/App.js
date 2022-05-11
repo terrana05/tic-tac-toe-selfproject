@@ -1,17 +1,22 @@
 import "./styles.css";
-import React from "react";
+import React, { useState } from "react";
 
-const style = {
-  background: "lightblue",
-  border: "2px solid darkblue",
-  fontSize: "30px",
-  fontWeight: "800",
-  cursor: "pointer",
-  outline: "none"
-};
+// const square = {
+//   background: "lightblue",
+//   border: "2px solid darkblue",
+//   fontSize: "30px",
+//   fontWeight: "800",
+//   cursor: "pointer",
+//   outline: "none"
+// };
 
 function Square({ value, onClick }) {
-  return <button style={style} value={value} onClick={onClick}></button>;
+  // return <button style={square} value={value} onClick={onClick}></button>;
+  return (
+    <button className="square" value={value} onClick={onClick}>
+      {value}
+    </button>
+  );
 }
 
 function Gameboard(props) {
@@ -30,23 +35,51 @@ function Gameboard(props) {
 // 	</button>
 // );
 
+{Gameboard.map(function (square, index) {
+  return <Square key=index value={display} />
+
 export default function App() {
+  const [xTurn, setXTurn] = useState(true);
+  const [display, setDisplay] = useState("");
+
+  function handleClick() {
+    console.log("xTurn", xTurn);
+    setXTurn(!xTurn);
+
+    if (xTurn === "true") {
+      setDisplay("X");
+      console.log("display", display);
+    } else {
+      setDisplay("O");
+      console.log("display", display);
+    }
+  }
+
   return (
     <div className="App">
       <div>
-        <Gameboard title="Tic Tac Toe" punctuation="!" number="4" />
-        <Gameboard title="hello world" number="6" />
-        <Gameboard title="hi" />
-        <Square value="1" onClick={() => onClick("dummy value")} />
-        <Square value="2" onClick={() => onClick("dummy value")} />
-        <Square value="3" onClick={() => onClick("dummy value")} />
-        <Square value="4" onClick={() => onClick("dummy value")} />
-        <Square value="5" onClick={() => onClick("dummy value")} />
-        <Square value="6" onClick={() => onClick("dummy value")} />
-        <Square value="7" onClick={() => onClick("dummy value")} />
-        <Square value="8" onClick={() => onClick("dummy value")} />
-        <Square value="9" onClick={() => onClick("dummy value")} />
+        <Gameboard title="Tic Tac Toe" />
+        {/* <Gameboard title="hello world" number="6" punctuation="!"/> 
+        <Gameboard title="hi" /> */}
+        <div>
+          <Square value={display} onClick={handleClick} />
+          <Square value={display} onClick={handleClick} />
+          <Square value={display} onClick={handleClick} />
+        </div>
+
+        <div>
+          <Square value={display} onClick={handleClick} />
+          <Square value={display} onClick={handleClick} />
+          <Square value={display} onClick={handleClick} />
+        </div>
+
+        <div>
+          <Square value={display} onClick={handleClick} />
+          <Square value={display} onClick={handleClick} />
+          <Square value={display} onClick={handleClick} />
+        </div>
       </div>
     </div>
   );
 }
+

@@ -2,3 +2,14 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.square {
+  background: lightblue;
+  font-size: 30px;
+  font-weight: 800;
+  cursor: pointer;
+  border: 2px solid darkblue;
+  outline: none;
+  height: 100px;
+  width: 100px;
+}
