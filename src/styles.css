@@ -3,6 +3,18 @@
   text-align: center;
 }
 
+#squareStyle {
+  display: flex;
+  flex-wrap: wrap;
+  width: 312px;
+  margin: 0 auto;
+}
+
+/* .container {
+  flex-wrap: nowrap | wrap | wrap-reverse;
+} */
+
+/* todo: center content in square */
 .square {
   background: lightblue;
   font-size: 30px;

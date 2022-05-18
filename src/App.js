@@ -1,5 +1,5 @@
 import "./styles.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // const square = {
 //   background: "lightblue",
@@ -13,9 +13,9 @@ import React, { useState } from "react";
 function Square({ value, onClick }) {
   // return <button style={square} value={value} onClick={onClick}></button>;
   return (
-    <button className="square" value={value} onClick={onClick}>
+    <div className="square" value={value} onClick={onClick}>
       {value}
-    </button>
+    </div>
   );
 }
 
@@ -35,24 +35,26 @@ function Gameboard(props) {
 // 	</button>
 // );
 
-{Gameboard.map(function (square, index) {
-  return <Square key=index value={display} />
+// Gameboard.map(function (square, index) {
+//   return <Square key=index value={display} />
+// };
 
 export default function App() {
   const [xTurn, setXTurn] = useState(true);
-  const [display, setDisplay] = useState("");
+  // const [display, setDisplay] = useState("");
+  const [gameStatus, setGameStatus] = useState(Array(9).fill(null));
 
-  function handleClick() {
-    console.log("xTurn", xTurn);
-    setXTurn(!xTurn);
-
-    if (xTurn === "true") {
-      setDisplay("X");
-      console.log("display", display);
-    } else {
-      setDisplay("O");
-      console.log("display", display);
-    }
+  // todo: check if the value is null before doing anything
+  function handleClick(boxIndex) {
+    setGameStatus((currentStatus) => {
+      if (xTurn === true) {
+        currentStatus[boxIndex] = "X";
+      } else {
+        currentStatus[boxIndex] = "0";
+      }
+      return currentStatus;
+    });
+    setXTurn((xTurn) => !xTurn);
   }
 
   return (
@@ -61,7 +63,18 @@ export default function App() {
         <Gameboard title="Tic Tac Toe" />
         {/* <Gameboard title="hello world" number="6" punctuation="!"/> 
         <Gameboard title="hi" /> */}
-        <div>
+        <div id="squareStyle">
+          {gameStatus.map(function (square, index) {
+            return (
+              <Square
+                value={square}
+                key={index}
+                onClick={() => handleClick(index)}
+              />
+            );
+          })}
+        </div>
+        {/* <div>
           <Square value={display} onClick={handleClick} />
           <Square value={display} onClick={handleClick} />
           <Square value={display} onClick={handleClick} />
@@ -77,9 +90,12 @@ export default function App() {
           <Square value={display} onClick={handleClick} />
           <Square value={display} onClick={handleClick} />
           <Square value={display} onClick={handleClick} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
 }
 
+// const [] null
+// ['x','x','o','x','o','x','x','o','o']
+// [0,1,2] || [0,3,6] || [0,4,8] [2,5,8] [2,4,7] [7,8,9] [1,4,8]
